@@ -1,0 +1,58 @@
+<view class="page">
+  <view class="page__hd ">
+    <view class="mask"></view>
+    <video id="currentVideo" 
+    bindtap="clickToPause" src="{{src}}" muted="{{videoMuted}}" 
+    controls="{{false}}"
+    autoplay='{{true}}'
+    show-play-btn="{{false}}"
+    show-center-play-btn="{{false}}"
+    bindended="videoEnded"
+    bindwaiting="videoLoading"></video>
+  </view>
+  <view class="page-body">
+    <view class="lines-scroll">
+    <view class="edit-control clearfix">
+      <block wx:if="{{editable}}">
+        <view bindtap='cancelEdit'>取消</view>
+        <view bindtap='confirmEdit'>完成</view>
+      </block>
+      <block wx:else>
+        <view bindtap='editLines'>编辑</view>
+      </block>
+    </view> 
+    <scroll-view scroll-y="true" style="height: 200px" scroll-top="0" 
+    scroll-into-view="{{currentLine}}"
+    scroll-with-animation="{{true}}">  
+      
+      <view class="{{(editable?'underline':'') + ' ' + (currentShowLine[idx]||'') }}" wx:for="{{lines}}" wx:key="{{idx}}"  wx:for-index="idx" wx:for-item="line" id="{{'line'+line.startTime}}">
+        <input class="weui-input" value="{{line.text}}" data-linenumber="{{idx}}"
+        bindinput="bindKeyInput" focus="{{focus}}"disabled='{{!editable}}'/>
+      </view>      
+    </scroll-view>
+    </view>
+    <view class="control">
+      <button class="controls bgm" 
+      disabled='{{bgmBtn}}'
+      style="{{'background-image:url('+ musicBtn + ')'}}" bindtap="showPanel"></button>
+
+      <view class="{{popPanel}}">
+        <scroll-view class="weui-cell" scroll-y="true" style="height: 200rpx" scroll-top="0" >
+            <radio-group class="radio-group" bindchange="radioChange">
+                <radio class="radio" wx:for-items="{{bgmList}}" wx:key="name" value="{{item.id}}" checked="{{item.checked}}">
+                    <text>{{item.name}}</text>
+                </radio>
+            </radio-group>
+        </scroll-view>
+      </view>
+
+      <button class="controls microphone" 
+      style="{{'background-image:url(' + btnSrc + ')'}}" bindtap="startRecord"></button>
+
+      <button class="controls edit-lines" 
+      disabled='{{jumpBtn}}'
+      style="{{'background-image:url('+ nextBtn + ')'}}"
+      bindtap='jumpToNext'></button>
+    </view>
+  </view>
+</view>

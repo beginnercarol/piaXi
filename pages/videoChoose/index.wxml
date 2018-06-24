@@ -1,0 +1,49 @@
+<!--pages/videoChoose/index.wxml-->
+<view id="chooseVideo" class='weui-uploader__bd'>
+  <view class="weui-uploader__input-box" style='width:90%; height:200px; background-color: #FFFFFF; margin-top:10rpx;' >
+    <text style='position:absolute; top:50%; margin-top: -25rpx; left:50%; margin-left: 60rpx;'>选择素材</text>
+    <view class="weui-uploader__input" bindtap="chooseVideo">
+    </view>
+  </view>
+</view>
+
+<text>视频中的人物（{{imgArray.length}}个）</text>
+
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells" style='margin-top: 0; background-color: #F8F8F8;'>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd">
+              <view class="weui-uploader__info">
+                <text style='color:black;'>本地素材({{files.length}}个)</text>
+              </view>
+            </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file"id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+              </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="authorizeCamera"></view>
+              </view>
+              <text>添加素材</text>
+            </view>
+            <text>(脸部要求真人、正脸，脸部与五官无遮挡)</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="btn-area">
+    <button type="primary" disabled='true'>保存并进入配音</button>
+</view>
+<view class="btn-area">
+    <button type="default" disabled='true'>跳过</button>
+</view>

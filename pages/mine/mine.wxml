@@ -1,0 +1,36 @@
+<!--pages/mine/mine.wxml-->
+<view class="page" scroll-y="{{true}}">
+  <view class="page-hd">
+    <view class="userinfo">
+      <block wx:if="{{userInfo}}">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </block>
+      <block wx:else>
+        <button class="weui-btn" type="primary" catchtap="visitorLogin">获取头像昵称</button>
+      </block>
+    </view>
+  </view>
+  <view class="page-body">
+    <view class="weui-grids">
+      <block wx:for="{{grids}}" wx:key="*this">
+        <view 
+        class="weui-grid" hover-class="weui-grid_active" >
+            <image class="weui-grid__icon" src="{{item.poster}}" 
+              data-work-id="{{item.id}}" 
+              data-video-id="{{item.videoId}}"
+              data-work-length="{{item.videoLen}}"
+              catchtap="togglePopPanel"
+            />
+        </view> 
+      </block>
+    </view>
+  </view>
+  <view class="popPanel" catchtap="closePanel" wx:if="{{isPanelVisible}}">
+    <video id="myVideo" src="{{videoSrc}}" 
+      controls="{{true}}"
+      show-play-btn="{{true}}"
+      autoplay="{{true}}"
+      loop="{{false}}"></video>
+  </view>
+</view>

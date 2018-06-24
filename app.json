@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/main/main",
+    "pages/logs/logs",
+    "pages/edit/edit",
+    "pages/final/final",
+    "pages/material/index",
+    "pages/videoChoose/index",
+    "pages/loadmore/loadmore",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "爱Pia戏",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "首页",
+        "iconPath": "src/home.png",
+        "selectedIconPath":"src/home-active.png"
+      },
+      {
+        "pagePath": "pages/videoChoose/index",
+        "text": "Pia 戏",
+        "iconPath": "src/studio.png",
+        "selectedIconPath": "src/studio-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我",
+        "iconPath": "src/my.png",
+        "selectedIconPath": "src/my-active.png"
+      }
+    ]
+  }
+}

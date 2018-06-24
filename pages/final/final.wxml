@@ -1,0 +1,13 @@
+<view class="page">
+  <view class="page__hd ">
+    <video id="currentVideo" 
+    bindtap="clickToPause" src="{{videoSrc}}" muted="{{videoMuted}}" 
+    controls="{{true}}"
+    bindpause="{{videoPaused}}"
+    bindended="{{videoEnded}}"></video>
+  </view>
+  <view class="page-body">
+    <button class="weui-btn" type="primary" open-type="share">一键转发</button>
+    <button class="weui-btn" type="default" data-videourl="{{videoSrc}}" bindtap="saveToLocal">保存到本地</button>
+  </view>
+</view>

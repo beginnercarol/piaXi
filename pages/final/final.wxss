@@ -1,0 +1,10 @@
+/* pages/final/final.wxss */
+#currentVideo {
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.page-body {
+  padding:20rpx;
+}
