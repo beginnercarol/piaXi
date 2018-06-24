@@ -58,7 +58,9 @@ Page({
             imgSrc: that.data.file_web_root + 'roles/' + roles[i]["role_id"] + '/role.jpg'
             })
         }
-        temp[0].checked = true;
+        if(temp[0]){
+          temp[0].checked = true;
+        }
         that.setData({
           imgArray: temp,
           role_id: temp[0].img_id 

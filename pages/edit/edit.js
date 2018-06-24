@@ -94,7 +94,6 @@ Page({
    */
   onLoad: function (options) {
     console.log("onload");
-    
     getApp().globalData.currentPage = "edit";
     let ctx = this;
     let srcPath = getApp().globalData.srcPath;  
@@ -209,43 +208,58 @@ Page({
       console.log("file upload=>");
       let userInfo = getApp().globalData.userInfo;
       let ctx = this;
-      //上传音频文件
-      wx.uploadFile({
-        url: 'https://piaxi-filer.resetbypear.com/works/'+ctx.data.worksId +'/voice.acc', //仅为示例，非真实的接口地址
-        filePath: tempFilePath,
-        name: "vioce",
-        //上传字幕 用户信息 , 音频 id
-        formData: {
-          'lyrics': ctx.data.lines,
-          'user': userInfo,
-          'video_id': ctx.data.currentVideo,
-          'bgm_id': ctx.data.bgm
-        },
+      wx.showModal({
+        title: '上传文件',
+        content: '是否上传录音文件',
         success: function (res) {
-          let data = res.data
-          console.log("success");
-          //do something
-          ctx.setData({
-            uploaded: true
-          })
-          //通知dubbing
-          let url = 'https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/dubbing';
-          utils.httpRequest(url,{
-              method: 'POST',
-              data: {
-                "bgm_id": ctx.data.bgm
+          if (res.confirm) {
+            //上传音频文件
+            wx.uploadFile({
+              url: 'https://piaxi-filer.resetbypear.com/works/' + ctx.data.worksId + '/voice.aac', //仅为示例, 非真实的接口地址
+              filePath: tempFilePath,
+              name: "vioce",
+              //上传字幕 用户信息, 音频 id
+              formData: {
+                'lyrics': ctx.data.lines,
+                'user': userInfo,
+                'video_id': ctx.data.currentVideo,
+                'bgm_id': ctx.data.bgm
               },
-              success: ()=>{
-                wx.redirectTo({
-                  url: '/pages/final/final?src=' + ctx.data.worksId
+              success: function (res) {
+                let data = res.data
+                console.log("success");
+                //do something
+                ctx.setData({
+                  uploaded: true
                 })
+                //通知dubbing
+                let url = 'https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/dubbing';
+                utils.httpRequest(url, {
+                  method: 'POST',
+                  data: {
+                    "bgm_id": ctx.data.bgm
+                  },
+                  success: () => {
+                    wx.redirectTo({
+                      url: '/pages/final/final?src=' + ctx.data.worksId
+                    })
+                  }
+                })
+              },
+              fail: function (res) {
+                console.log("fail");
               }
-          })
-        },
-        fail: function (res) {
-          console.log("fail");
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+            wx.redirectTo({
+              url: '../material/index?src=' + ctx.data.currentVideo + '&length=' + ctx.data.videoLength
+            })
+          }
         }
+
       })
+      
     });
   },
 
@@ -306,7 +320,7 @@ Page({
       }else{
         //录音结束,上传文件
         //上传字幕
-          utils.httpRequest('https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/subtitle', {
+        utils.httpRequest('https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/subtitle', {
           method: 'POST',
           data: {
             "subtitle": ctx.data.lines
@@ -492,7 +506,22 @@ Page({
     current.forEach((ele, index) => {
         current[index] = null;
     });
-    ctx.audioContext && ctx.audioContext.stop();
+    utils.httpRequest('https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/subtitle', {
+      method: 'POST',
+      data: {
+        "subtitle": ctx.data.lines
+      },
+      success: function () {
+        console.log("success");
+        
+        ctx.audioContext && ctx.audioContext.stop();
+      },
+      fail: function () {
+        console.log("fail");
+        ctx.audioContext && ctx.audioContext.stop();
+      }
+    });
+    //ctx.audioContext && ctx.audioContext.stop();
     ctx.setData({
       currentLine: "line" + ctx.data.lineTimes[0],
       currentShowLine: current,
