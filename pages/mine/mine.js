@@ -109,7 +109,7 @@ Page({
       success: (res)=>{
         let works = res.data.data.works;
         let temp = [];
-        for(let i=0; i<4; i++){
+        for(let i=works.length-1; i>=works.length-4; i--){
           temp.push({
             id: works[i]["works_id"],
             name: works[i]["name"],

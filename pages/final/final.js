@@ -1,6 +1,5 @@
 var utils = require("../../utils/util.js");
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -21,8 +20,8 @@ Page({
       console.log("share=>",res.target)
     }
     return {
-      title: '爱pia戏',
-      path: fileServer + '/works/' + currentVideo + '/product.mp4'
+      title: '爱pia戏'
+      //path: fileServer + '/works/' + worksId + '/product.mp4'
     }
   },
 
@@ -42,7 +41,12 @@ Page({
           wx.saveVideoToPhotosAlbum({
             filePath: res.tempFilePath,
             success(res) {
-              console.log(res.errMsg)
+              console.log(res.errMsg);
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+                duration: 2000
+              })
             }
           })
         }
@@ -144,12 +148,9 @@ Page({
    */
   onReachBottom: function () {
 
-  },
+  }
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
-  }
 })
