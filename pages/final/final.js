@@ -14,13 +14,15 @@ Page({
   },
 
   onShareAppMessage: function(res){
+    let fileServer = getApp().globalData.fileServer;
+    let worksId = this.data.currentVideo;
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
+      console.log("share=>",res.target)
     }
     return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123'
+      title: '爱pia戏',
+      path: fileServer + '/works/' + currentVideo + '/product.mp4'
     }
   },
 

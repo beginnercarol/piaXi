@@ -46,8 +46,7 @@ Page({
     }
     this.setData({
       isPanelVisible: !ctx.data.isPanelVisible,
-      // videoSrc: fileServer + '/works/' + workId + '/product.mp4'
-      videoSrc: fileServer + '/videos/1/original.mp4'
+      videoSrc: fileServer + '/works/' + workId + '/product.mp4'
     })
     console.log("panel",ctx.data.isPanelVisible);
   },
@@ -108,9 +107,9 @@ Page({
       method:"GET",
       "Content-Type": "application/json",
       success: (res)=>{
-        let works = res.data.works;
+        let works = res.data.data.works;
         let temp = [];
-        for(let i=0; i<temp.length; i++){
+        for(let i=0; i<4; i++){
           temp.push({
             id: works[i]["works_id"],
             name: works[i]["name"],

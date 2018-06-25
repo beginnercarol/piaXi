@@ -56,8 +56,8 @@ Page({
     if(playedTime == 0){
       //告知后台没有新的信息需要传递
       //通知dubbing
-      let url = 'https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/subtitle'
-      utils.httpRequest(url, {
+      //let url = 'https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/subtitle'
+      utils.httpRequest('https://piaxi.resetbypear.com/api/works/' + ctx.data.worksId + '/subtitle', {
         method: 'POST',
         data: {
           "subtitle": ctx.data.lines
@@ -603,7 +603,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.setData({
+      playedTime: 0
+    })
   },
 
   /**
